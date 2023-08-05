@@ -5,8 +5,8 @@ import pathlib
 from inhouse_map_app.upload_manager.main import decompress_zip_file
 
 # Test settings
-INPUT_PATH = '/home/arash/Desktop/projects/RahaWorks/inhouse_map_app/tests/data/Polygon.zip'
-OUTPUT_PATH = '/home/arash/Desktop/projects/RahaWorks/inhouse_map_app/tests/data/results'
+INPUT_PATH = r'C:\Users\User\Documents\GitHub\inhouse-map-app\inhouse_map_app\tests\data\Polygon.zip'
+OUTPUT_PATH = r'C:\Users\User\Documents\GitHub\inhouse-map-app\inhouse_map_app\test\data\result'
 
 # Create test results directory
 pathlib.Path(OUTPUT_PATH).mkdir(parents=True, exist_ok=True)

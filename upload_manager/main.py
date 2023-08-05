@@ -1,9 +1,14 @@
 import os
 import zipfile
 
-workspace_dir = 'workspace_dir'
-file_path = 'inhouse_map_app/test/data/Polygon.zip'
-VALID_FORMATS = ['shp', 'shx', 'dbf', 'prj']
+WORKSPACE_DIR = 'workspace_dir'
+FILE_PATH = r'C:\Users\User\Documents\GitHub\inhouse-map-app\inhouse_map_app\tests\data\Polygon.zip'
+OUTPUT_PATH = r'C:\Users\User\Documents\GitHub\inhouse-map-app\inhouse_map_app\test\data\result'
+INVALID_FORMATS = ['sh', 'msi', 'bash', 'bat', 'sql', 'exe']
+ITEM_CONTENTS = []
+
+# with zipfile.ZipFile(FILE_PATH) as archived:
+#     print('file_contents: ', archived.printdir())
 
 
 def decompress_zip_file(input_path: str, output_path: str = '') -> str:
@@ -40,12 +45,25 @@ def decompress_zip_file(input_path: str, output_path: str = '') -> str:
             zipfile_size = os.path.getsize(input_path)
             if zipfile_size <= 500000:
                 with zipfile.ZipFile(input_path) as archived:
-                    # TODO
-                    # I need to check .msi file or .exe .sh .bash
-                    # file_contents = archived.namelist()
-                    # for item in file_contents:
-                    #     if item is valid_format:
-                    #         pass
+                    file_contents = archived.ZipFile.namelist()
+                    # Check if bad format file like .msi , .exe, .sh, .bash, .bat, and .sql are exist
+                    if len(file_contents) >= 2:
+                        for items in file_contents[1:]:
+                            ITEM_CONTENTS = [items.split('.')[-1]] + ITEM_CONTENTS 
+                    else:
+                        raise Exception('This zipfile is empty.')
+
+                    bad_format = []
+                    for i in INVALID_FORMATS:
+                        if i in ITEM_CONTENTS:
+                            bad_format.append(i)
+
+                    if bad_format:
+                        bad_format_str = ', '.join(bad_format)
+                        raise Exception(
+                            f'This zipfile could not extract because it contains (.{bad_format_str}) format file.')
+                    else:
+                        archive.extractall(OUTPUT_PATH) 
 
                     # TODO
                     # Not working
