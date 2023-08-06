@@ -28,7 +28,7 @@ def decompress_zip_file(input_path: str, output_path: str = '') -> str:
         # check file exist and raise FileNotFoundException() if it's necessary
         if os.path.isfile(input_path):
             if not output_path:
-                output_path = os.path.join(workspace_dir, 'test1')
+                output_path = os.path.join(WORKSPACE_DIR, 'test1')
 
             file_format = os.path.basename(input_path).split('.')[-1]
             file_name = os.path.basename(input_path).split('.')[0]
@@ -43,7 +43,8 @@ def decompress_zip_file(input_path: str, output_path: str = '') -> str:
                         # Check if bad format file like .msi , .exe, .sh, .bash, .bat, and .sql are exist
                         if len(file_contents) >= 2:
                             for items in file_contents[1:]:
-                                ITEM_CONTENTS = [items.split('.')[-1]] + ITEM_CONTENTS 
+                                ITEM_CONTENTS = [items.split(
+                                    '.')[-1]] + ITEM_CONTENTS
                         else:
                             raise Exception(f'{file_name}.zip is empty.')
                         bad_format = []
@@ -55,20 +56,23 @@ def decompress_zip_file(input_path: str, output_path: str = '') -> str:
                             raise Exception(
                                 f'This zipfile could not extract because it contains (.{bad_format_str}) format file.')
                         else:
-                            extracted_archive = archive.extractall(OUTPUT_PATH)
-                            extracted_archive = archive.namelist()
+                            extracted_archive = archived.extractall(
+                                OUTPUT_PATH)
+                            extracted_archive = archived.namelist()
                             path = OUTPUT_PATH
-                            absolute_path = [path+layer for layer in extracted_archive]
-                            return(absolute_path)                          
+                            absolute_path = [
+                                path+layer for layer in extracted_archive]
+                            return (absolute_path)
                 else:
                     # Fix the message
-                    raise Exception(f'{file_name}.zip size is {zipfile_size / 1024000:.2f} MB that is larger than 5 MB ')
+                    raise Exception(
+                        f'{file_name}.zip size is {zipfile_size / 1024000:.2f} MB that is larger than 5 MB ')
             else:
                 raise Exception(
                     f'Use .zip format as input => format (.{file_format}) is not supported.')
         else:
             raise Exception(
-                f'There is no file in "{INPUT_PATH}" directory.')
+                f'There is no file in "{input_path}" directory.')
     except Exception as e:
         raise Exception(
             'Failed to decompress the ESRI archived file. => ', str(e))
