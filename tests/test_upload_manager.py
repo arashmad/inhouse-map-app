@@ -1,16 +1,16 @@
 import os
 import shutil
 import pathlib
-
+import zipfile
 from inhouse_map_app.upload_manager.main import decompress_zip_file
 
 # Test settings
 
 # Fatema
-# ROOT = r'C:\Users\User\Documents\GitHub\inhouse-map-app'
+ROOT = r'C:\Users\User\Documents\GitHub\inhouse-map-app'
 
 # Arash
-ROOT = '/home/arash/Desktop/projects/RahaWorks'
+# ROOT = '/home/arash/Desktop/projects/RahaWorks'
 
 INPUT_PATH = os.path.join(ROOT, 'inhouse_map_app/tests/data/Polygon.zip')
 OUTPUT_PATH = os.path.join(ROOT, 'inhouse_map_app/tests/data/results')
